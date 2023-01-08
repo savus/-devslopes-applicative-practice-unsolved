@@ -5,8 +5,25 @@ import { data } from "../data/data";
 // Return example: 1902
 
 export function getGreatestDiscoveryYear(data) {
-  
-  
+  const yearlyRepetitions = {};
+
+  data.asteroids
+    .map((asteroid) => asteroid.discoveryYear)
+    .map((year) => {
+      yearlyRepetitions[year] = yearlyRepetitions[year] + 1 || 1;
+    }); 
+
+    let mostFrequent = 0;
+    for( let year in yearlyRepetitions) {
+      if( yearlyRepetitions[year] > mostFrequent) {
+        mostFrequent = yearlyRepetitions[year];
+      }
+    }
+
+    let mostDiscovered = Number(Object.keys(yearlyRepetitions)
+      .find(key => yearlyRepetitions[key] === mostFrequent));
+    
+    return mostDiscovered;
 }
 
 // === TEST YOURSELF ===
